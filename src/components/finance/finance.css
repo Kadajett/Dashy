@@ -1,0 +1,9 @@
+.financeBlock {
+    height: 30vh;
+    flex: 0.5;
+    width: 30vw;
+    background-color: #22222C;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 2px;
+}
