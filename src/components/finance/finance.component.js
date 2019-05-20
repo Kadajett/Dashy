@@ -1,30 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import "./finance.css";
 import { Line } from 'react-chartjs-2';
+import * as V from 'victory';
+import moment from 'moment';
+
 
 const chartDataFresh = {
-    labels: [],
-    datasets: [{
-        label: 'Price Per Minute',
-        data: [],
-        backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)'
-        ],
-        borderColor: [
-            // 'rgba(255, 99, 132, 1)',
-            // 'rgba(54, 162, 235, 1)',
-            // 'rgba(255, 206, 86, 1)',
-            // 'rgba(75, 192, 192, 1)',
-            // 'rgba(153, 102, 255, 1)',
-            // 'rgba(255, 159, 64, 1)'
-        ],
-        borderWidth: 1
-    }]
+    data: []
 };
 
 const chartOptions = {
@@ -57,43 +39,54 @@ export default (props) => {
     const [chartData, setChartData] = useState({...chartDataFresh});
     useEffect(() => {
         props.getPriceData();
-        resetChart();
+        setInterval(() => {
+            props.getPriceData();
+        }, 60000)
+        
+        // resetChart();
     }, [])
 
     useEffect(() => {
         let newChartData = {...chartDataFresh};
-        console.log( chartDataFresh);
-        resetChart({...newChartData});
+        
+        
+        // newChartData.datasets[0].label = `${props.product} Price Per minute`;
         if(props.price) {
             // newChartData.datasets[0] = {};
-            
-            props.price.forEach(price => {
-                if(price.time && newChartData.datasets[0].data) {
-                    var time = msToTime(price.time)
-                    newChartData.labels.push(time);
-                    // debugger;
-                    newChartData.datasets[0].data.push(price.close);
+            newChartData.data = [];
+            props.price.forEach((price, index) => {
+                
+                if(price) {
+                    // let a = moment();
+                    // let b = moment(price.time);
+                    // console.log(a.diff(b, 'minutes'))
+                    if(price.price) {
+                        newChartData.data.push({x: index, y: price.price})
+                    }
                 }
             })
         }
-        // debugger;
-        // console.log(newChartData);
+
         resetChart({...newChartData})
     }, [props.price])
 
     function resetChart(newChart) {
-        setChartData({})
-        setChartData({...newChart})
-        // debugger;
-        if(chartRef && chartRef.current && chartRef.current.forceUpdate) {
-            chartRef.current.forceUpdate()
-        }
+        setChartData(newChart);
     }
   return (
     <div className="financeBlock">
-            <h2 className="subText">Finance</h2>
-            {/* {JSON.stringify(chartData)} */}
-            <Line ref={chartRef} data={chartData} options={chartOptions}/>
+            <h2 className="subText">{props.product}</h2>
+            <V.VictoryChart
+                theme={V.VictoryTheme.material}
+                >
+                <V.VictoryLine
+                    style={{
+                    data: { stroke: "#c43a31" },
+                    parent: { border: "1px solid #ccc"}
+                    }}
+                    data={chartData.data}
+                />
+            </V.VictoryChart>
         </div>
   )
 }

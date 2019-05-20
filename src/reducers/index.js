@@ -34,13 +34,10 @@ function journalReducer(state=[], action) {
 
 function financeReducer(state={}, action) {
     let newState = {...state};
+    
     switch(action.type) {
         case ActionTypes.SET_PRICE: 
-            if(state[action.product]) {
-                newState[action.product].price = action.price;
-            } else {
-                newState[action.product] = {price: action.price};
-            }
+            newState[action.product] = {price: action.price}
             return newState;
         case ActionTypes.SET_PRODUCT:
             return newState;

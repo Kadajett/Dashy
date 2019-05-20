@@ -25,6 +25,7 @@ export function toggleTodo(index) {
 
 export function setPrice(product, price) {
     let priceArr = [...price];
+    // debugger;
     return {
         type: ActionTypes.SET_PRICE,
         product,

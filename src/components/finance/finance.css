@@ -1,8 +1,11 @@
 .financeBlock {
-    height: 30vh;
+    display: flex;
+    /* height: 30vh; */
     flex: 0.5;
+    flex-direction: column;
     width: 30vw;
     background-color: #22222C;
+    color: white;
     margin: 10px;
     padding: 10px;
     border-radius: 2px;

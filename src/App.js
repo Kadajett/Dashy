@@ -9,6 +9,7 @@ function App() {
     <div className="pageContainer">
       <FinanceBlock product="doge"></FinanceBlock>
       <FinanceBlock product="bitcoin"></FinanceBlock>
+      <FinanceBlock product="ethereum"></FinanceBlock>
       <TodoList></TodoList>
       <Journal></Journal>
       
