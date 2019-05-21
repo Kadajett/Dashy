@@ -1,21 +1,92 @@
 import React, { Component } from 'react';
 import Todo from "./todo.component";
 
+import {DragDropContext, Droppable} from 'react-beautiful-dnd';
+
 export default class TodoList extends Component {
-    renderTodos(daily) {
+    renderTodos(daily, provided) {
         return this.props.todos.map((todo, index) => {
+          // Think I have daily swapped here lol
             if(todo.daily === daily) {
-                return <Todo key={index} index={index} toggleTodo={this.props.toggleTodo} {...todo}></Todo>
+                return <Todo key={index} index={index} toggleTodo={this.props.toggleTodo} {...todo} ></Todo>
             }
             return '';
         })
     }
+    onDragEnd = result => {
+      console.log("ondragend")
+      const {destination, source, draggableId} = result;
+
+      if(!destination) {
+        return;
+      }
+
+      if(
+        destination.droppableId === source.droppableId &&
+        destination.index === source.index
+      ) {
+        return;
+      }
+      // debugger;
+      // switch between daily and monthly
+      if(destination.droppableId === "col2") {
+        // this is probably booled backwards too...
+        if(this.props) {
+          this.props.setDaily(source.index, true)
+        }
+        
+      }
+      if(destination.droppableId === "col1") {
+        // this is probably booled backwards too...
+        if(this.props) {
+          this.props.setDaily(source.index, false)
+        }
+      }
+      // const column = this.state.
+    }
   render() {
     return (
-      <div className="todoWrapper">
-        <h2 className="subText">Todo</h2>
-        {this.renderTodos(false)}
-      </div>
+      <DragDropContext
+        
+        onDragEnd={this.onDragEnd}
+        
+      >
+        <div className="todoWrapper noselect">
+          <h2 className="subText">Todo</h2>
+          <h3 className="todoHeader">Daily</h3>
+          <div className="todoSeperator"></div>
+          <div className="todoListWrapper darkScroll">
+          
+          <Droppable droppableId={"col1"}>
+            {(provided) => (
+               <div {...provided.droppableProps} innerRef={provided.innerRef} ref={provided.innerRef}>
+                {this.renderTodos(false, provided)}
+                {provided.placeholder}
+              </div>)
+            }
+            
+          </Droppable>
+          </div>
+          <h3 className="todoHeader">Monthly</h3>
+          <div className="todoSeperator"></div>
+          <div className="todoListWrapper darkScroll">
+          <Droppable droppableId={"col2"}>
+            {(provided) => (
+              <div {...provided.droppableProps} innerRef={provided.innerRef} ref={provided.innerRef}>
+                {this.renderTodos(true, provided)}
+                {provided.placeholder}
+              </div>
+              
+            )
+            }
+            
+            
+          </Droppable>
+          </div>
+          
+        </div>
+      </DragDropContext>
+      
     )
   }
 }

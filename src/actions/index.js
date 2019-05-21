@@ -1,11 +1,12 @@
 import ActionTypes from "../reducers/actionTypes";
 
-export function addTodo(text, daily) {
+export function addTodo(text, daily, dueDate = false) {
     return {
         type: ActionTypes.ADD_TODO,
         checked: false,
         daily,
         text,
+        dueDate,
     }
 }
 
@@ -20,6 +21,14 @@ export function toggleTodo(index) {
     return {
         type: ActionTypes.TOGGLE_TODO,
         index
+    }
+}
+
+export function setDaily(index, daily) {
+    return {
+        type: ActionTypes.SET_DAILY,
+        index,
+        daily
     }
 }
 

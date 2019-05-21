@@ -3,6 +3,7 @@ export default {
     ADD_TODO: "ADD_TODO",
     REMOVE_TODO: "REMOVE_TODO",
     TOGGLE_TODO: "TOGGLE_TODO",
+    SET_DAILY: "SET_DAILY",
     // Finance
     SET_PRICE: "SET_PRICE",
     // Finance Block

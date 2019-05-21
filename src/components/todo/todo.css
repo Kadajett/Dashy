@@ -1,5 +1,6 @@
 .todoWrapper {
     width: 30vw;
+    
     background-color: #22222C;
     margin: 10px;
     padding: 10px;
@@ -9,9 +10,30 @@
     color: white;
 }
 
+.todoListWrapper {
+    height: 100px;
+    overflow-y: scroll;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
 .todo {
     border-bottom: 1px solid #6E7181;
     text-align: right;
-    padding-right: 20px;
     width: 100%;
+}
+
+.todoSeperator {
+    height: 1px;
+    border-bottom: 1px solid white;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.todoHeader {
+    font-size: 20px;
+}
+
+.todoText {
+    padding-right: 10px;
 }

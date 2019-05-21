@@ -1,15 +1,19 @@
 import ActionTypes from "./actionTypes";
 import {combineReducers} from "redux";
 function todosReducer(state = [], action) {
-
+    let newState = [...state];
     switch(action.type) {
         case ActionTypes.ADD_TODO:
             return state.concat(action);
         case ActionTypes.REMOVE_TODO:
             return state.filter((v,i)=>i!==action.index)
         case ActionTypes.TOGGLE_TODO:
-            let newState = [...state];
+            
             newState[action.index].checked = !newState[action.index].checked;
+            return newState;
+        case ActionTypes.SET_DAILY:
+            // let newState = [...state];
+            newState[action.index].daily = action.daily;
             return newState;
         default:
             return state;

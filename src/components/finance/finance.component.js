@@ -5,6 +5,8 @@ import * as V from 'victory';
 import moment from 'moment';
 
 
+
+
 const chartDataFresh = {
     data: []
 };
@@ -37,6 +39,7 @@ function msToTime(s) {
 export default (props) => {
     let chartRef = React.createRef();
     const [chartData, setChartData] = useState({...chartDataFresh});
+    const [currentPrice, setCurrentPrice] = useState(0);
     useEffect(() => {
         props.getPriceData();
         setInterval(() => {
@@ -61,10 +64,12 @@ export default (props) => {
                     // let b = moment(price.time);
                     // console.log(a.diff(b, 'minutes'))
                     if(price.price) {
-                        newChartData.data.push({x: index, y: price.price})
+                        newChartData.data.push({x: index, y: price.price, label: price.price});
                     }
                 }
             })
+            // newChartData.data[props.price.length - 1].tooltip = props.price[props.price.length - 1].price;
+            setCurrentPrice(props.price[props.price.length - 1].price);
         }
 
         resetChart({...newChartData})
@@ -75,11 +80,12 @@ export default (props) => {
     }
   return (
     <div className="financeBlock">
-            <h2 className="subText">{props.product}</h2>
+            <h2 className="subText">{props.product} : ${currentPrice}</h2>
             <V.VictoryChart
                 theme={V.VictoryTheme.material}
                 >
                 <V.VictoryLine
+                    labelComponent={<V.VictoryTooltip/>}
                     style={{
                     data: { stroke: "#c43a31" },
                     parent: { border: "1px solid #ccc"}

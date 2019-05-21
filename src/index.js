@@ -12,11 +12,17 @@ import { addTodo, removeTodo, toggleTodo } from './actions/index';
 
 let store = createStore(rootReducer)
 
-store.dispatch(addTodo("asdf 1", false));
-store.dispatch(addTodo("asdf 2", false));
-store.dispatch(addTodo("asdf 3", false));
-store.dispatch(toggleTodo(0));
-store.dispatch(removeTodo(1));
+store.dispatch(addTodo("Daily 1", false));
+store.dispatch(addTodo("Daily 2", false));
+store.dispatch(addTodo("Daily 3", false));
+
+store.dispatch(addTodo("Daily 4", false));
+store.dispatch(addTodo("Daily 5", false));
+store.dispatch(addTodo("Daily 6", false));
+
+store.dispatch(addTodo("Monthly 1", true));
+
+
 
 store.dispatch({
     type: 'ADD_ENTRY', 

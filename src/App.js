@@ -4,6 +4,12 @@ import TodoList from './components/todo';
 import FinanceBlock from './components/finance';
 import Journal from './components/journal/index';
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faSquare, faCheckSquare} from "@fortawesome/free-solid-svg-icons";
+
+library.add(faSquare, faCheckSquare)
+
 function App() {
   return (
     <div className="pageContainer">
