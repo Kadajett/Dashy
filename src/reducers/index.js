@@ -1,5 +1,17 @@
 import ActionTypes from "./actionTypes";
 import {combineReducers} from "redux";
+
+function array_move(arr, old_index, new_index) {
+    if (new_index >= arr.length) {
+        var k = new_index - arr.length + 1;
+        while (k--) {
+            arr.push(undefined);
+        }
+    }
+    arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
+    return arr; // for testing
+};
+
 function todosReducer(state = [], action) {
     let newState = [...state];
     switch(action.type) {
@@ -14,6 +26,10 @@ function todosReducer(state = [], action) {
         case ActionTypes.SET_DAILY:
             // let newState = [...state];
             newState[action.index].daily = action.daily;
+            return newState;
+        case ActionTypes.MOVE_TODO_INDEX:
+            
+            newState = [...array_move(newState, action.oldIndex, action.newIndex)];
             return newState;
         default:
             return state;

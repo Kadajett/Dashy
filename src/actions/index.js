@@ -13,14 +13,14 @@ export function addTodo(text, daily, dueDate = false) {
 export function removeTodo(index) {
     return {
         type: ActionTypes.REMOVE_TODO,
-        index
+        index,
     }
 }
 
 export function toggleTodo(index) {
     return {
         type: ActionTypes.TOGGLE_TODO,
-        index
+        index,
     }
 }
 
@@ -28,7 +28,15 @@ export function setDaily(index, daily) {
     return {
         type: ActionTypes.SET_DAILY,
         index,
-        daily
+        daily,
+    }
+}
+
+export function moveTodoIndex(oldIndex, newIndex) {
+    return {
+        type: ActionTypes.MOVE_TODO_INDEX,
+        oldIndex,
+        newIndex,
     }
 }
 

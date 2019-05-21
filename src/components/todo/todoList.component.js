@@ -42,7 +42,8 @@ export default class TodoList extends Component {
           this.props.setDaily(source.index, false)
         }
       }
-      // const column = this.state.
+      // Switch index
+      this.props.moveTodoIndex(source.index, destination.index)
     }
   render() {
     return (
