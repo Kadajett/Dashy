@@ -15,6 +15,12 @@
     overflow-y: scroll;
     padding-right: 10px;
     padding-left: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.todoListDroppable {
+    flex-grow: 1;
 }
 
 .todo {

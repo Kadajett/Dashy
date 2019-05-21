@@ -27,7 +27,6 @@ export default class TodoList extends Component {
       ) {
         return;
       }
-      // debugger;
       // switch between daily and monthly
       if(destination.droppableId === "col2") {
         // this is probably booled backwards too...
@@ -73,7 +72,7 @@ export default class TodoList extends Component {
           <div className="todoListWrapper darkScroll">
           <Droppable droppableId={"col2"}>
             {(provided) => (
-              <div {...provided.droppableProps} innerRef={provided.innerRef} ref={provided.innerRef}>
+              <div {...provided.droppableProps} innerRef={provided.innerRef} ref={provided.innerRef} className="todoListDroppable">
                 {this.renderTodos(true, provided)}
                 {provided.placeholder}
               </div>
