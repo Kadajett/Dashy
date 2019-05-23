@@ -14,7 +14,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         if(ownProps.product === "doge") {
             return {
                 getPriceData: () => {
-                    axios.get('https://min-api.cryptocompare.com/data/histominute?fsym=DOGE&tsym=USD&limit=200&api_key=ff0b2e5779486a013d4efbcf9a351f303f092983d08504dd487ca2443747ff1d')
+                    axios.get('https://min-api.cryptocompare.com/data/histominute?fsym=DOGE&aggregate=5&aggregatePredictableTimePeriods=true&tsym=USD&limit=200&api_key=ff0b2e5779486a013d4efbcf9a351f303f092983d08504dd487ca2443747ff1d')
                     .then((res) => {
                         
                         if(res && res.data && res.data.Data && res.data.Data) { 
@@ -34,7 +34,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         else if(ownProps.product === "bitcoin") {
             return {
                 getPriceData: () => {
-                    axios.get('https://min-api.cryptocompare.com/data/histominute?fsym=BTC&tsym=USD&limit=200&api_key=ff0b2e5779486a013d4efbcf9a351f303f092983d08504dd487ca2443747ff1d')
+                    axios.get('https://min-api.cryptocompare.com/data/histominute?fsym=BTC&tsym=USD&aggregate=5&aggregatePredictableTimePeriods=true&limit=200&api_key=ff0b2e5779486a013d4efbcf9a351f303f092983d08504dd487ca2443747ff1d')
                     .then((res) => {
                         if(res && res.data && res.data.Data && res.data.Data) {
                             let prices = res.data.Data.map(point => {
@@ -53,7 +53,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         else if(ownProps.product === "ethereum") {
             return {
                 getPriceData: () => {
-                    axios.get('https://min-api.cryptocompare.com/data/histominute?fsym=ETH&tsym=USD&limit=200&api_key=ff0b2e5779486a013d4efbcf9a351f303f092983d08504dd487ca2443747ff1d')
+                    axios.get('https://min-api.cryptocompare.com/data/histominute?fsym=ETH&tsym=USD&aggregate=5&aggregatePredictableTimePeriods=true&limit=200&api_key=ff0b2e5779486a013d4efbcf9a351f303f092983d08504dd487ca2443747ff1d')
                     .then((res) => {
                         if(res && res.data && res.data.Data && res.data.Data) {
                             let prices = res.data.Data.map(point => {

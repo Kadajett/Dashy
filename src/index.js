@@ -22,7 +22,7 @@ store.dispatch(addTodo("Daily 6", false));
 
 store.dispatch(addTodo("Monthly 1", true));
 
-
+window.closeContextMenu = new Event('closeContextMenu');
 
 store.dispatch({
     type: 'ADD_ENTRY', 

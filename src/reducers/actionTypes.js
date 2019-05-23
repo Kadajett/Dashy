@@ -5,6 +5,8 @@ export default {
     TOGGLE_TODO: "TOGGLE_TODO",
     SET_DAILY: "SET_DAILY",
     MOVE_TODO_INDEX: "MOVE_TODO_INDEX",
+    MOVE_TODO_TOP: "MOVE_TODO_TOP",
+    MOVE_TODO_BOTTOM: "MOVE_TODO_BOTTOM",
     // Finance
     SET_PRICE: "SET_PRICE",
     // Finance Block

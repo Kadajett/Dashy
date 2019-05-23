@@ -24,6 +24,20 @@ export function toggleTodo(index) {
     }
 }
 
+export function moveTodoTop(index) {
+    return {
+        type: ActionTypes.MOVE_TODO_TOP,
+        index
+    }
+}
+
+export function moveTodoBottom(index) {
+    return {
+        type: ActionTypes.MOVE_TODO_BOTTOM,
+        index
+    }
+}
+
 export function setDaily(index, daily) {
     return {
         type: ActionTypes.SET_DAILY,
