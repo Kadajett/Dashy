@@ -8,13 +8,12 @@ export default class TodoList extends Component {
         return this.props.todos.map((todo, index) => {
           // Think I have daily swapped here lol
             if(todo.daily === daily) {
-                return <Todo key={index} index={index} toggleTodo={this.props.toggleTodo} {...todo} ></Todo>
+                return <Todo key={index} index={index} toggleTodo={this.props.toggleTodo} {...todo} {...this.props} ></Todo>
             }
             return '';
         })
     }
     onDragEnd = result => {
-      console.log("ondragend")
       const {destination, source, draggableId} = result;
 
       if(!destination) {
@@ -53,13 +52,14 @@ export default class TodoList extends Component {
       >
         <div className="todoWrapper noselect">
           <h2 className="subText">Todo</h2>
+          <button className="addTodoButton">Add Todo</button>
           <h3 className="todoHeader">Daily</h3>
           <div className="todoSeperator"></div>
           <div className="todoListWrapper darkScroll">
           
           <Droppable droppableId={"col1"}>
             {(provided) => (
-               <div {...provided.droppableProps} innerRef={provided.innerRef} ref={provided.innerRef}>
+               <div {...provided.droppableProps} ref={provided.innerRef}>
                 {this.renderTodos(false, provided)}
                 {provided.placeholder}
               </div>)
@@ -72,7 +72,7 @@ export default class TodoList extends Component {
           <div className="todoListWrapper darkScroll">
           <Droppable droppableId={"col2"}>
             {(provided) => (
-              <div {...provided.droppableProps} innerRef={provided.innerRef} ref={provided.innerRef} className="todoListDroppable">
+              <div {...provided.droppableProps} ref={provided.innerRef} className="todoListDroppable">
                 {this.renderTodos(true, provided)}
                 {provided.placeholder}
               </div>

@@ -31,6 +31,13 @@ function todosReducer(state = [], action) {
             
             newState = [...array_move(newState, action.oldIndex, action.newIndex)];
             return newState;
+        case ActionTypes.MOVE_TODO_TOP:
+                
+                newState = [...array_move(newState, action.index, 0)];
+                return newState;
+        case ActionTypes.MOVE_TODO_BOTTOM:
+                newState = [...array_move(newState, action.index, newState.length - 1)];
+                return newState;
         default:
             return state;
     }

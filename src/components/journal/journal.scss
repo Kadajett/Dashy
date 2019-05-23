@@ -1,13 +1,16 @@
 .journalWrapper {
     width: 100vw;
-    
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: auto;
     background-color: #22222C;
     margin: 10px;
     padding: 10px;
     border-radius: 2px;
     /* border: 1px solid #636e72; */
-    height: 60vh;
+    
     color: white;
+
     input {
         width: 70%;
         display: block;
