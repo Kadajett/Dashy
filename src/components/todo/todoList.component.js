@@ -4,6 +4,20 @@ import Todo from "./todo.component";
 import {DragDropContext, Droppable} from 'react-beautiful-dnd';
 
 export default class TodoList extends Component {
+    constructor(props) {
+      super(props);
+
+      this.state = {
+        newTodo: {
+          text: '',
+          monthly: false
+        }
+      }
+
+      this.onAddTodoClick = this.onAddTodoClick.bind(this);
+      this.onSetNewTodoMonthly = this.onSetNewTodoMonthly.bind(this);
+      this.onTodoInputChange = this.onTodoInputChange.bind(this);
+    }
     renderTodos(daily, provided) {
         return this.props.todos.map((todo, index) => {
           // Think I have daily swapped here lol
@@ -43,50 +57,104 @@ export default class TodoList extends Component {
       // Switch index
       this.props.moveTodoIndex(source.index, destination.index)
     }
-  render() {
-    return (
-      <DragDropContext
-        
-        onDragEnd={this.onDragEnd}
-        
-      >
-        <div className="todoWrapper noselect">
-          <h2 className="subText">Todo</h2>
-          <button className="addTodoButton">Add Todo</button>
-          <h3 className="todoHeader">Daily</h3>
-          <div className="todoSeperator"></div>
-          <div className="todoListWrapper darkScroll">
+
+    onTodoInputChange(e) {
+      // debugger;
+      this.setState({...this.state, newTodo: {
+        ...this.state.newTodo,
+        text: e.target.value,
+      }})
+    }
+
+    clearTodo() {
+      this.createTodoInput.value = "";
+      this.createTodoMonthlyCheckbox.switchValue = "off";
+    }
+
+    isNewTodoValid() {
+      if(this.state.newTodo.text) {
+        return true;
+      }
+      return false;
+    }
+
+    onAddTodoClick(e) {
+      if(this.isNewTodoValid()) {
+        this.props.addTodo(this.state.newTodo);
+        this.clearTodo();
+      }
+    }
+
+    onSetNewTodoMonthly(e) {
+      let switchValue = false;
+      switch(e.target.value) {
+        case 'on':
+          switchValue = true;
+          break;
+        case 'off':
+        default:
+          switchValue = false;
+      }
+
+      this.setState({...this.state, newTodo: {
+        ...this.state.newTodo,
+        monthly: switchValue,
+      }});
+    }
+
+    render() {
+      return (
+        <DragDropContext
           
-          <Droppable droppableId={"col1"}>
-            {(provided) => (
-               <div {...provided.droppableProps} ref={provided.innerRef}>
-                {this.renderTodos(false, provided)}
-                {provided.placeholder}
-              </div>)
-            }
-            
-          </Droppable>
-          </div>
-          <h3 className="todoHeader">Monthly</h3>
-          <div className="todoSeperator"></div>
-          <div className="todoListWrapper darkScroll">
-          <Droppable droppableId={"col2"}>
-            {(provided) => (
-              <div {...provided.droppableProps} ref={provided.innerRef} className="todoListDroppable">
-                {this.renderTodos(true, provided)}
-                {provided.placeholder}
-              </div>
+          onDragEnd={this.onDragEnd}
+          
+        >
+          <div className="todoWrapper noselect">
+            <h2 className="subText">Todo</h2>
+            <div className="todoCreationWrapper">
+              <input type="text" name="createTodoInput" id="createTodoInputText" onChange={this.onTodoInputChange} ref={el => this.createTodoInput = el}/>
               
-            )
-            }
+              <button className="addTodoButton" onClick={this.onAddTodoClick}>+</button>
+              <br/>
+              <label htmlFor="monthlyTodoCheckbox">Monthly</label>
+              <input type="checkbox" name="monthlyTodoCheckbox" id="monthlyTodoCheckbox" label="monthly" onChange={this.onSetNewTodoMonthly} ref={el => this.createTodoMonthlyCheckbox = el}/>
+              
+              
+            </div>
+            <h3 className="todoHeader">Daily</h3>
+            <div className="todoSeperator"></div>
+            <div className="todoListWrapper darkScroll">
             
+            <Droppable droppableId={"col1"}>
+              {(provided) => (
+                <div {...provided.droppableProps} ref={provided.innerRef}>
+                  {this.renderTodos(false, provided)}
+                  {provided.placeholder}
+                </div>)
+              }
+              
+            </Droppable>
+            </div>
+            <h3 className="todoHeader">Monthly</h3>
+            <div className="todoSeperator"></div>
+            <div className="todoListWrapper darkScroll">
+            <Droppable droppableId={"col2"}>
+              {(provided) => (
+                <div {...provided.droppableProps} ref={provided.innerRef} className="todoListDroppable">
+                  {this.renderTodos(true, provided)}
+                  {provided.placeholder}
+                </div>
+                
+              )
+              }
+              
+              
+            </Droppable>
+            </div>
             
-          </Droppable>
           </div>
-          
-        </div>
-      </DragDropContext>
-      
-    )
-  }
+        </DragDropContext>
+        
+      )
+    }
 }

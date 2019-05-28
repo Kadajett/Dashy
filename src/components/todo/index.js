@@ -1,7 +1,7 @@
 import {connect} from "react-redux";
 import TodoList from './todoList.component';
 import "./todo.css";
-import { toggleTodo, setDaily, moveTodoIndex, removeTodo , moveTodoBottom, moveTodoTop} from '../../actions/index';
+import { toggleTodo, setDaily, moveTodoIndex, removeTodo , moveTodoBottom, moveTodoTop, addTodo} from '../../actions/index';
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
@@ -11,17 +11,21 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         removeTodo: (index) => {
             dispatch(removeTodo(index));
         },
-        setDaily(index, daily) {
+        setDaily: (index, daily) => {
             dispatch(setDaily(index, daily));
         },
-        moveTodoIndex(oldIndex, newIndex) {
+        moveTodoIndex: (oldIndex, newIndex) => {
             dispatch(moveTodoIndex(oldIndex, newIndex))
         },
-        moveTodoBottom(index) {
+        moveTodoBottom: (index) => {
             dispatch(moveTodoBottom(index));
         },
-        moveTodoTop(index) {
+        moveTodoTop: (index) => {
             dispatch(moveTodoTop(index));
+        },
+        addTodo: (newTodo) => {
+            let {text, monthly, dueDate} = newTodo;
+            dispatch(addTodo(text, monthly, dueDate));
         }
     }
 }
