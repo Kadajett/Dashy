@@ -2,7 +2,23 @@
 #
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
-version: 2
+version: 2.1
+orbs:
+  firebase-deploy: cloudliner/firebase-deploy@0.0.2
+commands:
+  deploy:
+    description: Deploy to firebase
+    parameters:
+      token:
+        type: string
+        description: Firebase Deploy Token
+    steps:
+      - run:
+          name: Install Firebase Tools
+          command: npm install --prefix=./firebase-deploy firebase-tools
+      - run:
+          name: Deploy to Firebase
+          command: ./firebase-deploy/node_modules/.bin/firebase deploy --token=1/rawpctoaEP-mWEnTDizc3iLjUKUkYBZPmZy8HDDEPYpxmlXlnFTciMrVTYI5FVzX
 jobs:
   build:
     docker:
@@ -26,12 +42,13 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run: yarn install
+      - run: npm install
 
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
+      - run: npm build
+      - run: firebase deploy
 
-      # run tests!
-      - run: yarn test
+     
